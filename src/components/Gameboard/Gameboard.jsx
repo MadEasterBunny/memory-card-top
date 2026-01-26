@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styles from './Gameboard.module.css'
 import Card from "../Card/Card"
 
-export default function Gameboard() {
+export default function Gameboard({ onClickCard }) {
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -34,15 +34,13 @@ export default function Gameboard() {
 
     if(error) return <div>{error}</div>
 
-    console.log(pokemon);
-
     return(
         <div className={styles.gameboardWrapper}>
             {pokemon.map((pokemon, index) => {
                 const pokemonId = index + 1;
                 const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
                 return(
-                    <Card key={pokemon.name} img={imageUrl} text={pokemon.name}/>
+                    <Card key={pokemon.name} img={imageUrl} text={pokemon.name} onClickCard={() => onClickCard(pokemon.name)}/>
                 )
             })}
         </div>
