@@ -1,0 +1,12 @@
+.cardWrapper {
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    background-color: aliceblue;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.cardWrapper p {
+    font-size: clamp(12px, 1.25rem, 1.5rem);
+}
