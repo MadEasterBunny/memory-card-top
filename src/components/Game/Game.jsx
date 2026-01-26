@@ -20,8 +20,6 @@ export default function Game() {
         }
 
         setPrevClick([...prevClick, data]);
-        console.log('Prev click ' + prevClick);
-        console.log('Curr click ' + data);
         setScore(score + 1);
     }
 
