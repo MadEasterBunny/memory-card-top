@@ -3,6 +3,19 @@ import Scoreboard from "../Scoreboard/Scoreboard"
 import Gameboard from "../Gameboard/Gameboard"
 import Card from "../Card/Card"
 
+const getId = (url) => {
+    return url.split('/').filter(Boolean).pop();
+}
+
+const shuffleCards = (arr) => {
+    const arrCopy = [...arr];
+    for(let i = arrCopy.length - 1; i >= 1; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arrCopy[i], arrCopy[j]] = [arrCopy[j], arrCopy[i]];
+    }
+    return arrCopy;
+}
+
 export default function Game() {
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,7 +34,15 @@ export default function Game() {
                 }
 
                 const data = await response.json();
-                setPokemon(data.results);
+                const cleanedPokemon = data.results.map(pokemon => {
+                    const id = getId(pokemon.url);
+                    return {
+                        name: pokemon.name,
+                        id: id,
+                        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+                    };
+                });
+                setPokemon(cleanedPokemon);
                 setError(null);
             } catch (error) {
                 setError(`Error fetching data: ${error.message}`);
@@ -45,10 +66,11 @@ export default function Game() {
             return;
         }
 
-        console.log(`Curr click: ${data}`);
-        console.log(`Prev click: ${prevClick}`);
         setPrevClick([...prevClick, data]);
         setScore(score + 1);
+
+        const shuffledCards = shuffleCards(pokemon);
+        setPokemon(shuffledCards);
     }
 
     return(
@@ -64,13 +86,10 @@ export default function Game() {
             {loading && <div>Loading cards...</div>}
             {!loading && !error && (
                 <Gameboard>
-                    {pokemon.map((pokemon, index) => {
-                        const pokemonId = index + 1;
-                        const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-                        return(
-                            <Card key={pokemon.name} img={imageUrl} text={pokemon.name} onClickCard={() => handleClick(pokemon.name)}/>
+                    {pokemon.map((pokemon) => (
+                            <Card key={pokemon.name} img={pokemon.image} text={pokemon.name} onClickCard={() => handleClick(pokemon.name)}/>
                         )
-                    })}
+                    )}
                 </Gameboard>
             )}
         </>
