@@ -1,7 +1,33 @@
 .gameOverWrapper {
-    min-height: 717px;
+    min-height: 765px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+}
+
+.gameOverWrapper h2 {
+    font-size: 3rem;
+}
+
+.gameOverWrapper p {
+    font-size: 1.5rem;
+}
+
+.gameOverWrapper button {
+    font-size: 1.25rem;
+    color: #fff;
+    background-color: #3b4cca;
+    border: 2px solid #fff;
+    outline: 2px solid #3b4cca;
+    letter-spacing: 2px;
+    transition: all 0.1s ease-in-out;
+}
+
+.gameOverWrapper button:hover {
+    background-color: #ffcb05;
+    border: 2px solid #3b4cca;
+    outline: none;
+    -webkit-text-stroke: 1px #3b4cca;
 }

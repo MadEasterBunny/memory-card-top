@@ -94,6 +94,7 @@ export default function Game() {
             {gameOver && (
                 <GameOver>
                     <h2>Game Over</h2>
+                    <p>High score: {highScore}</p>
                     <button onClick={handlePlayAgainClick}>Play again</button>
                 </GameOver>
             )}
