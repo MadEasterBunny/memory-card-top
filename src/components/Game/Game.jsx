@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import Scoreboard from "../Scoreboard/Scoreboard"
 import Gameboard from "../Gameboard/Gameboard"
 import Card from "../Card/Card"
+import GameOver from "../GameOver/GameOver"
 
 const getId = (url) => {
     return url.split('/').filter(Boolean).pop();
@@ -17,12 +18,14 @@ const shuffleCards = (arr) => {
 }
 
 export default function Game() {
+    const [initialPokemon, setInitialPokemon] = useState([]);
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [prevClick, setPrevClick] = useState([]);
     const [score, setScore] = useState(0);
     const [highScore, setHighScore] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
 
     useEffect(() => {
         const fetchPokemon = async () => {
@@ -42,6 +45,7 @@ export default function Game() {
                         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
                     };
                 });
+                setInitialPokemon(cleanedPokemon);
                 setPokemon(cleanedPokemon);
                 setError(null);
             } catch (error) {
@@ -55,9 +59,10 @@ export default function Game() {
         fetchPokemon();
     }, []);
 
-    const handleClick = (data) => {
+    const handleCardClick = (data) => {
         if(prevClick.includes(data)) {
             console.log('game over');
+            setGameOver(true);
             if(highScore < score) {
                 setHighScore(score);
             }
@@ -73,6 +78,11 @@ export default function Game() {
         setPokemon(shuffledCards);
     }
 
+    const handlePlayAgainClick = () => {
+        setGameOver(false);
+        setPokemon(initialPokemon);
+    }
+
     return(
         <>
             <div>
@@ -84,10 +94,16 @@ export default function Game() {
             </div>
             {error && <div>{error}</div>}
             {loading && <div>Loading cards...</div>}
-            {!loading && !error && (
+            {gameOver && (
+                <GameOver>
+                    <h2>Game Over</h2>
+                    <button onClick={handlePlayAgainClick}>Play again</button>
+                </GameOver>
+            )}
+            {!loading && !error && !gameOver && (
                 <Gameboard>
                     {pokemon.map((pokemon) => (
-                            <Card key={pokemon.name} img={pokemon.image} text={pokemon.name} onClickCard={() => handleClick(pokemon.name)}/>
+                            <Card key={pokemon.name} img={pokemon.image} text={pokemon.name} onClickCard={() => handleCardClick(pokemon.name)}/>
                         )
                     )}
                 </Gameboard>
