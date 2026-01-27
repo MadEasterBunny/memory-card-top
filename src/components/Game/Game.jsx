@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Header from "../Header/Header"
 import Scoreboard from "../Scoreboard/Scoreboard"
 import Gameboard from "../Gameboard/Gameboard"
 import Card from "../Card/Card"
@@ -85,13 +86,9 @@ export default function Game() {
 
     return(
         <>
-            <div>
-                <div>
-                    <h1>Memory Game</h1>
-                    <p>Score points by clicking on an image, but be careful not to click the same image twice!</p>
-                </div>
+            <Header>
                 <Scoreboard score={score} highScore={highScore} />
-            </div>
+            </Header>
             {error && <div>{error}</div>}
             {loading && <div>Loading cards...</div>}
             {gameOver && (

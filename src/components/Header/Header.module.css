@@ -1,0 +1,15 @@
+.headerWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerWrapper div:first-of-type {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.headerWrapper div:last-of-type {
+    text-align: right;
+}
