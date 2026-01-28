@@ -126,8 +126,6 @@ export default function Game() {
         setGameState('loading');
     }
 
-    console.log(pokemon);
-
     return(
         <>
             <Header>
