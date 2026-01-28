@@ -1,19 +1,42 @@
 .cardWrapper {
     display: flex;
     flex-direction: column;
-    background-color: #e9e9e9;
+    background-color: #F0EAD6;
+    border: 6px solid #FFDE00;
+    outline: 1px solid #000;
     border-radius: 8px;
     padding: 8px;
     transition: all 0.2s ease-in-out;
 }
 .cardWrapper:hover {
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
 
 .cardWrapper p {
-    font-size: clamp(12px, 1.25rem, 1.5rem);
+    font-size: clamp(12px, 1.15rem, 1.5rem);
     background-color: #fff;
     padding: 8px;
     border-radius: 8px;
+}
+
+.type-fire {
+    background-color: #FFB37E;
+}
+
+.type-water {
+    background-color: #A4C1FF;
+}
+
+.type-grass {
+    background-color: #B2E2A2;
+}
+
+.type-normal {
+    background-color: #D3D3AF;
+}
+
+.type-bug {
+    background-color: #C6D16E;
 }

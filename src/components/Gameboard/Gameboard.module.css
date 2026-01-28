@@ -1,6 +1,8 @@
 .gameboardWrapper {
+    min-height: 765px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    align-content: center;
     gap: 25px;
     padding: 2rem;
 }
