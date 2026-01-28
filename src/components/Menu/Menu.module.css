@@ -1,4 +1,4 @@
-.gameOverWrapper {
+.menuWrapper {
     min-height: 765px;
     display: flex;
     flex-direction: column;
@@ -7,15 +7,15 @@
     gap: 15px;
 }
 
-.gameOverWrapper h2 {
+.menuWrapper h2 {
     font-size: 3rem;
 }
 
-.gameOverWrapper p {
+.menuWrapper p {
     font-size: 1.5rem;
 }
 
-.gameOverWrapper button {
+.menuWrapper button {
     font-size: 1.25rem;
     color: #fff;
     background-color: #3b4cca;
@@ -25,7 +25,7 @@
     transition: all 0.1s ease-in-out;
 }
 
-.gameOverWrapper button:hover {
+.menuWrapper button:hover {
     background-color: #ffcb05;
     border: 2px solid #3b4cca;
     outline: none;

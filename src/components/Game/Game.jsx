@@ -3,7 +3,7 @@ import Header from "../Header/Header"
 import Scoreboard from "../Scoreboard/Scoreboard"
 import Gameboard from "../Gameboard/Gameboard"
 import Card from "../Card/Card"
-import GameOver from "../GameOver/GameOver"
+import Menu from "../Menu/Menu"
 
 const getId = (url) => {
     return url.split('/').filter(Boolean).pop();
@@ -19,6 +19,7 @@ const shuffleCards = (arr) => {
 }
 
 export default function Game() {
+    const [gameState, setGameState] = useState('start');
     const [initialPokemon, setInitialPokemon] = useState([]);
     const [pokemon, setPokemon] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,7 +27,6 @@ export default function Game() {
     const [prevClick, setPrevClick] = useState([]);
     const [score, setScore] = useState(0);
     const [highScore, setHighScore] = useState(0);
-    const [gameOver, setGameOver] = useState(false);
 
     useEffect(() => {
         const fetchPokemon = async () => {
@@ -63,7 +63,7 @@ export default function Game() {
     const handleCardClick = (data) => {
         if(prevClick.includes(data)) {
             console.log('game over');
-            setGameOver(true);
+            setGameState('gameOver');
             if(highScore < score) {
                 setHighScore(score);
             }
@@ -79,8 +79,8 @@ export default function Game() {
         setPokemon(shuffledCards);
     }
 
-    const handlePlayAgainClick = () => {
-        setGameOver(false);
+    const handlePlay = () => {
+        setGameState('playing');
         setPokemon(initialPokemon);
     }
 
@@ -91,14 +91,20 @@ export default function Game() {
             </Header>
             {error && <div>{error}</div>}
             {loading && <div>Loading cards...</div>}
-            {gameOver && (
-                <GameOver>
+            {gameState === 'start' && (
+                <Menu>
+                    <h2>Start Game</h2>
+                    <button onClick={handlePlay}>Play</button>
+                </Menu>
+            )}
+            {gameState === 'gameOver' && (
+                <Menu>
                     <h2>Game Over</h2>
                     <p>High score: {highScore}</p>
-                    <button onClick={handlePlayAgainClick}>Play again</button>
-                </GameOver>
+                    <button onClick={handlePlay}>Play again</button>
+                </Menu>
             )}
-            {!loading && !error && !gameOver && (
+            {!loading && !error && gameState === 'playing' && (
                 <Gameboard>
                     {pokemon.map((pokemon) => (
                             <Card key={pokemon.name} img={pokemon.image} text={pokemon.name} onClickCard={() => handleCardClick(pokemon.name)}/>

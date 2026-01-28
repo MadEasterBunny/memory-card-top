@@ -1,8 +1,8 @@
-import styles from './GameOver.module.css'
+import styles from './Menu.module.css'
 
 export default function GameOver({children}) {
     return(
-        <div className={styles.gameOverWrapper}>
+        <div className={styles.menuWrapper}>
             {children}
         </div>
     )
