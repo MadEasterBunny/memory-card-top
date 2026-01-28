@@ -11,6 +11,10 @@
     font-size: 3rem;
 }
 
+.menuWrapper p {
+    font-size: 1.5rem;
+}
+
 .menuWrapper div {
     display: flex;
     flex-direction: row;
